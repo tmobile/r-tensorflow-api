@@ -55,8 +55,8 @@ The dockerfile does the following steps:
 
 To run the _HTTPS_ version, use these commands:
 ```
-docker build -f Dockerfile.https -t r-tensorflow-api .
-docker run --rm -p 443:443 r-tensorflow-api
+docker build -f Dockerfile.https -t r-tensorflow-api-https .
+docker run --rm -p 443:443 r-tensorflow-api-https
 ```
 
 If you try to test it by going to [https://127.0.0.1/name](https://127.0.0.1/name) you'll get a warning that the certificates are invalid. You'll want to replace the https/server.cert and https/server.key file with your valid certificates before deploying.
