@@ -6,8 +6,8 @@
 This repository creates a production-ready docker image that uses R and the [keras](https://keras.rstudio.com/) and [plumber](https://github.com/trestletech/plumber) R packages to create a neural network powered REST API. The package keras provides the ability to create neural networks, while plumber allows it to run R as a web service. The docker container is designed to be:
 
   * __R first__ - designed so that R users can comfortably create their own neural network powered services without having to learn other languages.
-  * __Production ready__ - as small of an image size as possible while still being maintainable and understandable. At our last measure, it was 1.86gb, with around 800mb from python and the keras backend and 900mb from R and R libraries.
-  * __TensorFlow compatible__ - the container works with models created using the R keras package without any additional python configuration. Note: this uses the _cpu_ version of Tensorflow since it is designed for running models (not training them).
+  * __Production ready__ - as small of an image size as possible while still being maintainable and understandable. At our last measure, it was 1.86gb, with around 800mb from Python and the keras backend and 900mb from R and R libraries.
+  * __TensorFlow compatible__ - the container works with models created using the R keras package without any additional Python configuration. Note: this uses the _cpu_ version of Tensorflow since it is designed for running models (not training them).
   * __HTTPS enabled__ - unfortunately, the R plumber library does not support SSL encrypted traffic. Since encryption is likely required for enterprise use, we have an optional dockerfile which uses an Apache 2 server. The server redirects HTTPS traffic as HTTP to plumber, and then take the plumber response and re-encrypts it back to HTTPS.
 
 
@@ -46,7 +46,7 @@ The dockerfile does the following steps:
 
   1. Load from the [`rocker/r-ver`](https://hub.docker.com/r/rocker/r-ver/) docker image - This image was chosen as a balance of ease of maintenance (compared to a pure debian or alpine base) and size of the image (compared to [`rocker/tidyverse`](https://hub.docker.com/r/rocker/tidyverse/) which also includes RStudio). Unfortunately this means many R packages have to be manually installed. If you are finding the images builds too slowly for your tastes, switch to using [`rocker/tidyverse`](https://hub.docker.com/r/rocker/tidyverse/) as the base image.
   3. Install the necessary linux libraries. These libraries should be sufficient for most tidyverse libraries, however if you need more check out the libraries loaded by the [`rocker/tidyverse`](https://hub.docker.com/r/rocker/tidyverse/) image.
-  4. Install miniconda and the appropriate python libraries for keras. This image uses a miniconda version based on python 3.6. Miniconda python was chosen instead of Anaconda python to decrease the size of the image by 3gb. An environmental variable is also set so R knows to use the correct python version.
+  4. Install miniconda and the appropriate Python libraries for keras. This image uses a Miniconda version based on Python 3.6. Miniconda Python was chosen instead of Anaconda Python to decrease the size of the image by 3gb. An environmental variable is also set so R knows to use the correct Python version.
   3. Install the necessary R packages. Any package that you would want to install to run your service (that you'd normally use `install.packages()` for) you need to list in the `setup.R` file. Instead of using an R script to install the libraries, you could do it directly from within the dockerfile using `install2.r`. We chose to split this out so that data scientists have fewer reasons to touch the dockerfile.
   5. Copy the R code over.
   6. At runtime, use Rscript to start the `main.R` script, which has the plumber web server code.
