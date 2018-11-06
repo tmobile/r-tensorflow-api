@@ -10,6 +10,7 @@ This repository creates a production-ready docker image that uses R and the [ker
   * __TensorFlow compatible__ - the container works with models created using the R keras package without any additional Python configuration. Note: this uses the _cpu_ version of Tensorflow since it is designed for running models (not training them).
   * __HTTPS enabled__ - unfortunately, the R plumber library does not support SSL encrypted traffic. Since encryption is likely required for enterprise use, we have an optional dockerfile which uses an Apache 2 server. The server redirects HTTPS traffic as HTTP to plumber, and then take the plumber response and re-encrypts it back to HTTPS.
 
+Check out our blog post on the [T-Mobile open source website](https://opensource.t-mobile.com/blog/posts/r-tensorflow-api/).
 
 ## How to use this repository
 
