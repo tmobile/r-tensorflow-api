@@ -1,5 +1,5 @@
 # =========================================================================
-# Copyright © 2018 T-Mobile USA, Inc.
+# Copyright © 2019 T-Mobile USA, Inc.
 # 
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,13 +15,4 @@
 # =========================================================================
 
 options(warn=2) # cause the build to fail if any packages fail to install
-
-install.packages(
-    c("dplyr",
-    "stringr",
-    "tidyr",
-    "purrr",
-    "keras",
-    "plumber",
-    "jsonlite")
-)
+install.packages(c("keras","plumber"))

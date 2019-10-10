@@ -1,5 +1,5 @@
 # =========================================================================
-# Copyright © 2018 T-Mobile USA, Inc.
+# Copyright © 2019 T-Mobile USA, Inc.
 # 
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,31 +14,10 @@
 # limitations under the License.
 # =========================================================================
 
-
-library(dplyr)
-library(purrr)
-library(tidyr)
-library(keras)
-library(jsonlite)
-library(stringr)
-
-source("parameters.R")
 source("runtime_functions.R")
 
-model <- load_model_hdf5("model.h5")
-
 # Set an endpoint to return a pet name
-#* @get /name
-get_name <- function(species="",start=""){
-  species <- tolower(species)
-  if(species == ""){
-    species <- sample(c("cat","dog"),1)
-  }
-  
-  start <- 
-    start %>%
-    stringi::stri_trans_tolower() %>%
-    str_remove_all("[^ \\.-[a-zA-Z]]+")
-  
-  generate_name(species, start, model, character_lookup,max_length)
+#* @get /names
+get_names <- function(){
+  generate_many_names(20, model, character_lookup, max_length)
 }

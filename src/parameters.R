@@ -1,5 +1,5 @@
 # =========================================================================
-# Copyright © 2018 T-Mobile USA, Inc.
+# Copyright © 2019 T-Mobile USA, Inc.
 # 
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,9 +14,8 @@
 # limitations under the License.
 # =========================================================================
 
-character_lookup <-
-  data_frame(character = c(letters,".","-"," ","+")) %>% 
-  mutate(character_id = row_number())
+character_lookup <- data.frame(character = c(letters,".","-"," ","+"), stringsAsFactors = FALSE)
+character_lookup[["character_id"]] <- 1:nrow(character_lookup)
 
 max_length <- 10
 num_characters <- nrow(character_lookup) + 1
