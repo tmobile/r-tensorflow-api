@@ -1,5 +1,5 @@
 # =========================================================================
-# Copyright © 2018 T-Mobile USA, Inc.
+# Copyright © 2019 T-Mobile USA, Inc.
 # 
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
 # limitations under the License.
 # =========================================================================
 
-FROM rocker/r-ver:3.5.0
+FROM rocker/r-ver:3.6.0
 
 # update some packages, including sodium and apache2, then clean
 RUN apt-get update \
@@ -46,7 +46,7 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/ 
 
 # install miniconda, and set the appropriate path variables.
-RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-4.4.10-Linux-x86_64.sh -O ~/miniconda.sh && \
+RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-4.6.14-Linux-x86_64.sh -O ~/miniconda.sh && \
     /bin/bash ~/miniconda.sh -b -p /opt/conda && \
     rm ~/miniconda.sh && \
     /opt/conda/bin/conda clean -tipsy && \
@@ -55,8 +55,8 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-4.4.10-Linux-x86
     echo "conda activate base" >> ~/.bashrc
 ENV PATH /opt/conda/bin:$PATH
 
-# install keras, tensorflow, and h5py using the pip that links to miniconda (the default pip is for python 2.7)
-RUN /opt/conda/bin/pip install keras tensorflow h5py
+# install tensorflow and h5py using the pip that links to miniconda (the default pip is for python 2.7)
+RUN /opt/conda/bin/pip install --no-cache-dir tensorflow==2.0.0 h5py==2.10.0
 
 # let R know the right version of python to use
 ENV RETICULATE_PYTHON /opt/conda/bin/python

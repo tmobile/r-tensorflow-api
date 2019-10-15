@@ -1,0 +1,9 @@
+## R files ##
+.Rhistory
+.Rapp.history
+.RData
+.Rproj.user
+
+## git files
+.git
+.gitignore
