@@ -15,4 +15,4 @@
 # =========================================================================
 
 options(warn=2) # cause the build to fail if any packages fail to install
-install.packages(c("keras","plumber"))
+install.packages(c("jsonlite")) # change this line if you want any additional packages installed
