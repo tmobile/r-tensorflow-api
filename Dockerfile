@@ -16,6 +16,11 @@
 
 FROM rocker/r-ver:3.6.0
 
+LABEL org.label-schema.license="Apache-2.0" \
+      org.label-schema.vcs-url="https://github.com/tmobile/r-tensorflow-api" \
+      org.label-schema.vendor="T-Mobile" \
+      maintainer="Jacqueline Nolis (GitHub @jnolis)"
+      
 # update some packages, including sodium and apache2, then clean
 RUN apt-get update \
   && apt-get install -y --no-install-recommends \
