@@ -1,3 +1,9 @@
+# r-tensorflow-api v1.1.1 - 2019-12-23
+
+- Split package installation into two separate steps. Now installs plumber and keras in the Dockerfile and other packages in `setup.R`
+- Updated to R version 3.6.1
+- Upgraded miniconda to 4.7.12.1
+
 # r-tensorflow-api v1.1.0 - 2019-10-10
 
 - Updated to R version 3.6.0
