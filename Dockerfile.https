@@ -14,13 +14,13 @@
 # limitations under the License.
 # =========================================================================
 
-FROM rocker/r-ver:3.6.0
+FROM rocker/r-ver:3.6.3
 
 LABEL org.label-schema.license="Apache-2.0" \
       org.label-schema.vcs-url="https://github.com/tmobile/r-tensorflow-api" \
       org.label-schema.vendor="T-Mobile" \
       maintainer="Jacqueline Nolis (GitHub @jnolis)"
-
+      
 # update some packages, including sodium and apache2, then clean
 RUN apt-get update \
   && apt-get install -y --no-install-recommends \
@@ -41,17 +41,14 @@ RUN apt-get update \
 	libsm6  \
 	libxrender1 \
 	bzip2 \
-	libsodium-dev \
     apache2 \
     zlib1g-dev \
-    && wget -O libssl1.0.0.deb http://ftp.debian.org/debian/pool/main/o/openssl/libssl1.0.0_1.0.1t-1+deb8u8_amd64.deb \
-    && dpkg -i libssl1.0.0.deb \
-    && rm libssl1.0.0.deb \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/ 
 
 # install miniconda, and set the appropriate path variables.
-RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-4.6.14-Linux-x86_64.sh -O ~/miniconda.sh && \
+# install Python 3.7 (Miniconda) and Tensorflow Python packages then set path variables.
+RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-py37_4.8.2-Linux-x86_64.sh -O ~/miniconda.sh && \
     /bin/bash ~/miniconda.sh -b -p /opt/conda && \
     rm ~/miniconda.sh && \
     /opt/conda/bin/conda clean -tipsy && \
@@ -61,7 +58,8 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-4.6.14-Linux-x86
 ENV PATH /opt/conda/bin:$PATH
 
 # install tensorflow and h5py using the pip that links to miniconda (the default pip is for python 2.7)
-RUN /opt/conda/bin/pip install --no-cache-dir tensorflow==2.0.0 h5py==2.10.0
+RUN /opt/conda/bin/conda install tensorflow==2.0.0 h5py==2.10.0 && \
+    /opt/conda/bin/conda clean -tipsy
 
 # let R know the right version of python to use
 ENV RETICULATE_PYTHON /opt/conda/bin/python
@@ -86,7 +84,5 @@ COPY https/run-r-and-redirect.sh /usr/bin/run-r-and-redirect.sh
 
 # fixes an issue where the run script has windows line endings if running from windows
 RUN sed -i 's/\r//g' /usr/bin/run-r-and-redirect.sh
-
-EXPOSE 443
 
 ENTRYPOINT ["/usr/bin/run-r-and-redirect.sh"]

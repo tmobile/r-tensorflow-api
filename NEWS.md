@@ -1,3 +1,10 @@
+# r-tensorflow-api v1.1.1 - 2020-05-31
+
+- Updated to R version 3.6.3
+- Fixed an issue with Miniconda failing to download
+- Python packages now use conda instead of pip to install
+- Removed unnecessary EXPOSE commands
+
 # r-tensorflow-api v1.1.0 - 2019-10-10
 
 - Updated to R version 3.6.0
