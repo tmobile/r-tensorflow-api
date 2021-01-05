@@ -29,7 +29,7 @@ generate_name <- function(model, character_lookup, max_length, temperature=1){
   # max_length - the expected length of the training data in characters
   # temperature - how weird to make the names, higher is weirder
   
-  # given the probabilities returned from the model, this code
+  # given the probabilities returned from the model, this code picks the next character
   choose_next_char <- function(preds, character_lookup,temperature = 1){
     preds <- log(preds)/temperature
     exp_preds <- exp(preds)
