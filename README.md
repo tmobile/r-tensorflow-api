@@ -2,7 +2,7 @@
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-yellowgreen.svg)](LICENSE)
 
-_(version 1.1.1)_
+_(version 1.1.2)_
 
 This repository creates a production-ready docker image that uses R and the [keras](https://keras.rstudio.com/) and [plumber](https://github.com/trestletech/plumber) R packages to create a neural network powered REST API. The package keras provides the ability to create neural networks, while plumber allows it to run R as a web service. The docker container is designed to be:
 
