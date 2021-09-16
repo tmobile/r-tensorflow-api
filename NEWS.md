@@ -1,3 +1,9 @@
+# r-tensorflow-api v1.1.2 - 2021-09-16
+- Updated to R version 4.1.0
+- Upgraded to Python 3.9 and TensorFlow 2.6.0
+- Switched Python packages back to pip to get more recent versions unavailable on conda
+- removed the apache2 dependency from the HTTP version
+
 # r-tensorflow-api v1.1.1 - 2020-05-31
 
 - Updated to R version 3.6.3

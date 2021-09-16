@@ -14,7 +14,7 @@
 # limitations under the License.
 # =========================================================================
 
-FROM rocker/r-ver:3.6.3
+FROM rocker/r-ver:4.1.0
 
 LABEL org.label-schema.license="Apache-2.0" \
       org.label-schema.vcs-url="https://github.com/tmobile/r-tensorflow-api" \
@@ -41,14 +41,12 @@ RUN apt-get update \
 	libsm6  \
 	libxrender1 \
 	bzip2 \
-    apache2 \
     zlib1g-dev \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/ 
 
 # install miniconda, and set the appropriate path variables.
-# install Python 3.7 (Miniconda) and Tensorflow Python packages then set path variables.
-RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-py37_4.8.2-Linux-x86_64.sh -O ~/miniconda.sh && \
+RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-py39_4.9.2-Linux-x86_64.sh -O ~/miniconda.sh && \
     /bin/bash ~/miniconda.sh -b -p /opt/conda && \
     rm ~/miniconda.sh && \
     /opt/conda/bin/conda clean -tipsy && \
@@ -58,8 +56,7 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-py37_4.8.2-Linux
 ENV PATH /opt/conda/bin:$PATH
 
 # install tensorflow and h5py using the pip that links to miniconda (the default pip is for python 2.7)
-RUN /opt/conda/bin/conda install tensorflow==2.0.0 h5py==2.10.0 && \
-    /opt/conda/bin/conda clean -tipsy
+RUN /opt/conda/bin/pip install tensorflow==2.6.0 h5py==3.1.0
 
 # let R know the right version of python to use
 ENV RETICULATE_PYTHON /opt/conda/bin/python
